@@ -20,8 +20,12 @@ while True:
 
     if opcao == 'd':
         valor = float(input('Informe o valor a ser depositado: R$ '))
-        saldo += valor
-        extrato += f'\ndeposito R$ {valor:.2f}'
+        
+        if valor > 0:     
+            saldo += valor
+            extrato += f'\ndeposito R$ {valor:.2f}'
+        else:
+            print('Valor de deposito invalido!')
     
     elif opcao == 's':
 
@@ -32,14 +36,18 @@ while True:
             
             if valor > saldo:
                 print(f'Valor de saque indisponivel...\nSaldo em conta R$ {saldo:.2f}')
-            else:
-                if valor > SAQUE_MAXIMO:
-                    print('Limite maximo por saque atingido (R$ 500,00)')
-                else:           
-                    saldo -= valor
-                    extrato += f'\nsaque R$ {valor:.2f}'
+
+            elif valor > SAQUE_MAXIMO:
+                print('Limite maximo por saque atingido (R$ 500,00)')
+            
+            elif valor <= 0:
+                print(f'Valor de saque icorreto R$ {valor}')
+            
+            else:           
+                saldo -= valor
+                extrato += f'\nsaque R$ {valor:.2f}'
                             
-                numero_saques += 1
+            numero_saques += 1
         
     elif opcao == 'e':
         print('\n*************** EXTRATO ***************\n')
